@@ -1,4 +1,3 @@
-docker run -e POSTGRES_HOST_AUTH_METHOD=trust postgres:9.6
 
 # Docker Postgres instructions 
 # https://scriptable.com/how-to-install-postgresql-mac-docker/
@@ -6,6 +5,11 @@ docker run -e POSTGRES_HOST_AUTH_METHOD=trust postgres:9.6
 docker pull postgres
 docker volume create postgres-data
 docker volume ls
+
+docker stop postgres
+docker rm postgres
+
+docker run -e POSTGRES_HOST_AUTH_METHOD=trust postgres:9.6
 
 
 ############################
@@ -25,11 +29,23 @@ docker run --name postgres-container -e POSTGRES_PASSWORD="12345asdf" -p 5432:54
 docker stop milvus-etcd
 docker rm milvus-etcd
 
-
 docker-compose -f docker-compose-milvus.yml up 
 
 #################################
 ####    Kafka & Zookeeper    ####
 #################################
 
-docker-compose -f docker-compose-kafka up
+docker-compose -f docker-compose-kafka.yml up
+
+
+######################
+####    TypeDB    ####
+######################
+
+docker pull vaticle/typedb:latest
+
+docker stop typedb
+docker rm typedb
+
+docker run --name typedb -d -v typedb-data:/opt/ -p 1729:1729 --platform linux/amd64 vaticle/typedb:latest
+
