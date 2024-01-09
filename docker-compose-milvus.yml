@@ -17,6 +17,9 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+    networks:
+      - gis-dl-local-network
+
 
   minio:
     # container_name: milvus-minio
@@ -35,6 +38,9 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+    networks:
+      - gis-dl-local-network
+
 
   standalone:
     # container_name: milvus-standalone
@@ -59,7 +65,9 @@ services:
     depends_on:
       - "etcd"
       - "minio"
+    networks:
+      - gis-dl-local-network
 
 networks:
-  default:
-    name: milvus
+  gis-dl-local-network:
+    external: true

@@ -1,35 +1,45 @@
 
+# Purpose: Set up the Docker Network and all containers so they can connect with each other
+# Author:  Matt Poulton
 
+##############################
 ####    Docker Network    ####
+##############################
 
 docker network create gis-dl-local-network
-
 docker network ls
 docker network inspect gis-dl-local-network
-
-
 
 # Docker Postgres instructions 
 # https://scriptable.com/how-to-install-postgresql-mac-docker/
 
-docker pull postgres
+docker pull postgres:latest
 docker volume create postgres-data
 docker volume ls
 
-docker stop postgres
-docker rm postgres
+# docker stop postgres
+# docker rm postgres
 
-docker run -e POSTGRES_HOST_AUTH_METHOD=trust postgres:9.6
+# docker run \
+#     --network gis-dl-local-network --network-alias postgres \
+#     --name postgres \
+#     -e POSTGRES_HOST_AUTH_METHOD=trust postgres:9.6
 
 
-############################
-####    Run Postgres    ####
-############################
+########################
+####    Postgres    ####
+########################
 
-docker stop postgres-container
-docker rm postgres-container
+# docker stop postgres-container
+# docker rm postgres-container
 
-docker run --name postgres-container -e POSTGRES_PASSWORD="12345asdf" -p 5432:5432 -v postgres-data:/var/lib/postgresql/data -d postgres
+docker run \
+    --network gis-dl-local-network --network-alias postgres \
+    --name postgres-container \
+    -e POSTGRES_PASSWORD="12345asdf" \
+    -p 5432:5432 \
+    -v postgres-data:/var/lib/postgresql/data \
+    -d postgres
 
 
 ######################
@@ -59,7 +69,12 @@ docker pull vaticle/typedb:latest
 docker stop typedb
 docker rm typedb
 
-docker run --name typedb -d -v typedb-data:/opt/ -p 1729:1729 --platform linux/amd64 vaticle/typedb:latest
+docker run \
+    --network gis-dl-local-network --network-alias typedb \
+    --name typedb \
+    -d -v typedb-data:/opt/ \
+    -p 1729:1729 \
+    --platform linux/amd64 vaticle/typedb:latest
 
 
 ####################

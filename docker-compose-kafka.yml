@@ -1,10 +1,13 @@
 version: '3'
+
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - gis-dl-local-network
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -17,3 +20,10 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - gis-dl-local-network
+
+networks:
+  gis-dl-local-network:
+    external: true
+    driver: bridge
