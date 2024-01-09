@@ -1,4 +1,14 @@
 
+
+####    Docker Network    ####
+
+docker network create gis-dl-local-network
+
+docker network ls
+docker network inspect gis-dl-local-network
+
+
+
 # Docker Postgres instructions 
 # https://scriptable.com/how-to-install-postgresql-mac-docker/
 
@@ -50,3 +60,23 @@ docker stop typedb
 docker rm typedb
 
 docker run --name typedb -d -v typedb-data:/opt/ -p 1729:1729 --platform linux/amd64 vaticle/typedb:latest
+
+
+####################
+####    Neo4j   ####
+####################
+
+docker pull neo4j:latest
+
+
+docker run \
+    --network gis-dl-local-network --network-alias neo4j \
+    --name neo4j-container \
+    -p 7474:7474 -p 7687:7687 \
+    -d \
+    -v $HOME/neo4j/data:/data \
+    -v $HOME/neo4j/logs:/logs \
+    -v $HOME/neo4j/import:/var/lib/neo4j/import \
+    -v $HOME/neo4j/plugins:/plugins \
+    --env NEO4J_AUTH=$NEO4J_USER/$NEO4J_PASSWORD \
+    neo4j:latest
