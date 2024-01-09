@@ -104,9 +104,22 @@ docker pull --platform linux/arm64 mongo
 
 docker run \
     --network gis-dl-local-network --network-alias mongodb \
-    --name mongodb 
-    -d -p 27017:27017 
+    --name mongodb \
+    -d -p 27017:27017 \
     --platform linux/arm64 mongo
 
 # RUN WITH USERNAME AND PASSWORD
 # docker run --name mongodb -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=myuser -e MONGO_INITDB_ROOT_PASSWORD=mypassword --platform linux/arm64 mongo
+
+
+###################
+####    Reis   ####
+###################
+
+docker pull redis:latest
+
+docker run \
+    --network gis-dl-local-network --network-alias redis \
+    --name redis \
+    -d -p 6379:6379 \
+    --platform linux/arm64 redis
