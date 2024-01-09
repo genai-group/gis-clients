@@ -32,6 +32,7 @@ docker volume ls
 
 # docker stop postgres-container
 # docker rm postgres-container
+# docker pull postgres:latest
 
 docker run \
     --network gis-dl-local-network --network-alias postgres \
@@ -80,8 +81,11 @@ docker-compose -f docker-compose-kafka.yml up
 ####    Neo4j   ####
 ####################
 
-docker pull neo4j:latest
 
+
+# docker stop neo4j-container
+# docker rm neo4j-container
+# docker pull neo4j:latest
 
 docker run \
     --network gis-dl-local-network --network-alias neo4j \
@@ -100,7 +104,9 @@ docker run \
 ####    Mongo   ####
 ####################
 
-docker pull --platform linux/arm64 mongo
+# docker stop mongodb
+# docker rm mongodb
+# docker pull --platform linux/arm64 mongo
 
 docker run \
     --network gis-dl-local-network --network-alias mongodb \
@@ -116,7 +122,9 @@ docker run \
 ####    Reis   ####
 ###################
 
-docker pull redis:latest
+# docker stop redis
+# docker rm redis
+# docker pull redis:latest
 
 docker run \
     --network gis-dl-local-network --network-alias redis \
