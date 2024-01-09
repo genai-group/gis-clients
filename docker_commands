@@ -64,18 +64,17 @@ docker-compose -f docker-compose-kafka.yml up
 
 # NOTE: you must use this version of protobuf in the requirements.txt file => protobuf==3.20.0
 
-docker pull vaticle/typedb:latest
+# docker pull vaticle/typedb:latest
 
-docker stop typedb
-docker rm typedb
+# docker stop typedb
+# docker rm typedb
 
-docker run \
-    --network gis-dl-local-network --network-alias typedb \
-    --name typedb \
-    -d -v typedb-data:/opt/ \
-    -p 1729:1729 \
-    --platform linux/amd64 vaticle/typedb:latest
-
+# docker run \
+#     --network gis-dl-local-network --network-alias typedb \
+#     --name typedb \
+#     -d -v typedb-data:/opt/ \
+#     -p 1729:1729 \
+#     --platform linux/amd64 vaticle/typedb:latest
 
 ####################
 ####    Neo4j   ####
@@ -95,3 +94,19 @@ docker run \
     -v $HOME/neo4j/plugins:/plugins \
     --env NEO4J_AUTH=$NEO4J_USER/$NEO4J_PASSWORD \
     neo4j:latest
+
+
+####################
+####    Mongo   ####
+####################
+
+docker pull --platform linux/arm64 mongo
+
+docker run \
+    --network gis-dl-local-network --network-alias mongodb \
+    --name mongodb 
+    -d -p 27017:27017 
+    --platform linux/arm64 mongo
+
+# RUN WITH USERNAME AND PASSWORD
+# docker run --name mongodb -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=myuser -e MONGO_INITDB_ROOT_PASSWORD=mypassword --platform linux/arm64 mongo
