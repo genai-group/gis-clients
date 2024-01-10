@@ -112,15 +112,15 @@ docker run \
 
 # docker stop mongodb
 # docker rm mongodb
-# docker pull --platform linux/arm64 mongo
+# docker pull --platform linux/arm64 mongo:4.4
 
-docker run \
-    --network gis-dl-local-network --network-alias mongodb \
-    --name mongodb-container \
-    -d -p 27017:27017 \
-    --platform linux/amd64 mongo
+# docker run \
+#     --network gis-dl-local-network --network-alias mongo \
+#     --name mongodb-container \
+#     -d -p 27017:27017 \
+#     --platform linux/amd64 mongo
 
-
+docker-compose -f docker-compose-mongo.yml up
 
 
 # RUN WITH USERNAME AND PASSWORD
