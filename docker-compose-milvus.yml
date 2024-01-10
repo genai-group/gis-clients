@@ -41,10 +41,10 @@ services:
     networks:
       - gis-dl-local-network
 
-  milvus-container:
-    # container_name: milvus-container
+  standalone:
+    container_name: milvus-container
     image: milvusdb/milvus:v2.3.3
-    command: ["milvus", "run", "milvus-container"]
+    command: ["milvus", "run", "standalone"]
     security_opt:
     - seccomp:unconfined
     environment:
