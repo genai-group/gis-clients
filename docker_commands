@@ -164,8 +164,8 @@ docker run \
     --network gis-dl-local-network --network-alias ollama \
     -d -v ollama:/root/.ollama \
     -p 11434:11434 \
-    --name ollama ollama/ollama
+    --name ollama-container ollama/ollama
 
 # Start llama2 model
-docker exec -it ollama ollama run llama2
+docker exec -it ollama-container ollama run llama2
 
