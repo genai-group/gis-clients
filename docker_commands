@@ -2,6 +2,14 @@
 # Purpose: Set up the Docker Network and all containers so they can connect with each other
 # Author:  Matt Poulton
 
+############################
+####    Docker Prune    ####
+############################
+
+# docker system prune -a
+# docker system df
+
+
 ##############################
 ####    Docker Network    ####
 ##############################
@@ -107,7 +115,7 @@ docker run \
 # docker pull --platform linux/arm64 mongo
 
 docker run \
-    --network gis-dl-local-network --network-alias mongo \
+    --network gis-dl-local-network --network-alias mongodb \
     --name mongodb-container \
     -d -p 27017:27017 \
     --platform linux/amd64 mongo
