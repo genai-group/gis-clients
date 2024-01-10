@@ -9,7 +9,7 @@ services:
     networks:
       - gis-dl-local-network
 
-  kafka:
+  kafka-container:
     image: confluentinc/cp-kafka:latest
     depends_on:
       - zookeeper

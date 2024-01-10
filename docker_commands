@@ -108,7 +108,7 @@ docker run \
 
 docker run \
     --network gis-dl-local-network --network-alias mongodb \
-    --name mongodb \
+    --name mongodb-container \
     -d -p 27017:27017 \
     --platform linux/arm64 mongo
 
@@ -126,7 +126,7 @@ docker run \
 
 docker run \
     --network gis-dl-local-network --network-alias redis \
-    --name redis \
+    --name redis-container \
     -d -p 6379:6379 \
     --platform linux/arm64 redis
 
@@ -141,9 +141,28 @@ docker run \
 
 docker run \
     --network gis-dl-local-network --network-alias vault \
-    --name vault \
+    --name vault-container \
     -d -p 8200:8200 \
     --cap-add=IPC_LOCK \
     -e 'VAULT_DEV_ROOT_TOKEN_ID=myroot' \
     -e 'VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200' \
     --platform linux/arm64 vault:1.13.3
+
+
+######################
+####    ollama    ####
+######################
+
+# docker pull ollama/ollama
+# docker stop ollama
+# docker rm ollama
+
+docker run \
+    --network gis-dl-local-network --network-alias ollama \
+    -d -v ollama:/root/.ollama \
+    -p 11434:11434 \
+    --name ollama ollama/ollama
+
+# Start llama2 model
+docker exec -it ollama ollama run llama2
+
