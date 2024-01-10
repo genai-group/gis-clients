@@ -135,9 +135,9 @@ docker run \
 ####    Vault   ####
 ####################
 
-# docker pull vault:1.13.3
 # docker stop vault
 # docker rm vault
+# docker pull vault:1.13.3
 
 docker run \
     --network gis-dl-local-network --network-alias vault \
