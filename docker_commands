@@ -116,9 +116,9 @@ docker run \
 # docker run --name mongodb -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=myuser -e MONGO_INITDB_ROOT_PASSWORD=mypassword --platform linux/arm64 mongo
 
 
-###################
-####    Reis   ####
-###################
+####################
+####    Redis   ####
+####################
 
 # docker stop redis
 # docker rm redis
