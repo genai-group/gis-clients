@@ -13,9 +13,6 @@ docker network inspect gis-dl-local-network
 # Docker Postgres instructions 
 # https://scriptable.com/how-to-install-postgresql-mac-docker/
 
-docker pull postgres:latest
-docker volume create postgres-data
-docker volume ls
 
 # docker stop postgres
 # docker rm postgres
@@ -33,6 +30,7 @@ docker volume ls
 # docker stop postgres-container
 # docker rm postgres-container
 # docker pull postgres:latest
+# docker volume create postgres-data
 
 docker run \
     --network gis-dl-local-network --network-alias postgres \
@@ -131,3 +129,21 @@ docker run \
     --name redis \
     -d -p 6379:6379 \
     --platform linux/arm64 redis
+
+
+####################
+####    Vault   ####
+####################
+
+# docker pull vault:1.13.3
+# docker stop vault
+# docker rm vault
+
+docker run \
+    --network gis-dl-local-network --network-alias vault \
+    --name vault \
+    -d -p 8200:8200 \
+    --cap-add=IPC_LOCK \
+    -e 'VAULT_DEV_ROOT_TOKEN_ID=myroot' \
+    -e 'VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200' \
+    --platform linux/arm64 vault:1.13.3
